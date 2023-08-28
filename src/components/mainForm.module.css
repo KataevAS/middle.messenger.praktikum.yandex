@@ -1,0 +1,33 @@
+.form {
+  width: 340px;
+  height: 450px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
+  padding: 50px 30px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  color: #1E1E1E;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 40px;
+}
+
+.link {
+  color: #3369F3;
+  font-size: 11px;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 14px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
