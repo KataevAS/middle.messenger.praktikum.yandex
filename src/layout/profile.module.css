@@ -73,9 +73,9 @@
     margin-left: -50px;
     text-align: center;
   }
+}
 
-  &:hover.avatar::after,
-  &:hover.avatar::before  {
-    visibility: visible;
-  }
+.avatar:hover.avatar::after,
+.avatar:hover.avatar::before  {
+  visibility: visible;
 }
