@@ -13,12 +13,12 @@
   color: #999;
   margin-left: 10px;
   text-align: end;
-}
 
-.input:disabled {
-  background-color: transparent;
-}
-
-.input:focus {
-  outline: none;
+  &:disabled {
+    background-color: transparent;
+  }
+  
+  &:focus {
+    outline: none;
+  }
 }

@@ -7,18 +7,18 @@
 
 .field {
   padding: 10px 0;
-}
 
-.field:first-child {
-  padding: 0 0 10px;
-}
-
-.field:last-child {
-  padding: 10px 0 0;
-}
-
-.field:not(:last-child) {
-  border-bottom: 1px solid #EAEAEA;
+  &:first-child {
+    padding: 0 0 10px;
+  }
+  
+  &:last-child {
+    padding: 10px 0 0;
+  }
+  
+  &:not(:last-child) {
+    border-bottom: 1px solid #EAEAEA;
+  }
 }
 
 .btn {
