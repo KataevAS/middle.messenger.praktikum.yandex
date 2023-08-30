@@ -1,6 +1,5 @@
 *, *::before, *::after  {
   box-sizing: border-box;
-  font-family: Inter;
 }
 
 h1,h2,h3,h4,h5,h6,p,ul {
@@ -13,6 +12,9 @@ ul {
 }
 
 body {
+  margin: 0;
   color: #1E1E1E;
+  font-family: Inter;
   line-height: 1;
+  font-size: 13px;
 }

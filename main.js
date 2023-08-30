@@ -1,113 +1,104 @@
 import Handlebars from 'handlebars'
 
 import mainLayout from './src/layout/main.tmpl'
+import profileLayout from './src/layout/profile.tmpl'
 
 import input from './src/components/input.tmpl'
 import button from './src/components/button.tmpl'
 import link from './src/components/link.tmpl'
-
-import mainForm from './src/pages/home/components/mainForm.tmpl'
+import avatar from './src/components/avatar.tmpl'
 
 import index from './src/pages/index.tmpl'
-import errorPage from './src/pages/error/error.tmpl'
-import login from './src/pages/home/modules/login/login.tmpl'
-import signin from './src/pages/home/modules/signin/signin.tmpl'
 
-const render = (tmpl, context) => {
-  return Handlebars.compile(tmpl)(context)
+import mainForm from './src/pages/home/components/mainForm.tmpl'
+import login from './src/pages/home/modules/login/login.tmpl'
+import { listFormLoginPage } from './src/pages/home/modules/login/constants'
+import signin from './src/pages/home/modules/signin/signin.tmpl'
+import { listFormSigninPage } from './src/pages/home/modules/signin/constants'
+
+import profile from './src/pages/profile/profile.tmpl'
+import { listFormProfilePage } from './src/pages/profile/constants'
+import profileChange from './src/pages/profile/modules/profileChange/profileChange.tmpl'
+import { listFormProfileChangePage } from './src/pages/profile/modules/profileChange/constants'
+import passwordChange from './src/pages/profile/modules/passwordChange/passwordChange.tmpl'
+import { listFormPasswordChangePage } from './src/pages/profile/modules/passwordChange/constants'
+import profileForm from './src/pages/profile/components/profileForm.tmpl'
+import profileInput from './src/pages/profile/components/profileInput.tmpl'
+
+import errorPage from './src/pages/error/error.tmpl'
+
+const getRender = (root) => {
+  return (tmpl, context) => {
+    root.innerHTML = Handlebars.compile(tmpl)(context)
+  }
 }
 
-Handlebars.registerPartial('main-layout', mainLayout)
-Handlebars.registerPartial('input', input)
-Handlebars.registerPartial('main-form', mainForm)
-Handlebars.registerPartial('button', button)
-Handlebars.registerPartial('link', link)
+const registerPartial = (name, tmpl) => {
+  Handlebars.registerPartial(name, tmpl)
+}
 
-Handlebars.registerHelper('each', function(context, options) {
-  var ret = "";
+registerPartial('main-layout', mainLayout)
+registerPartial('profile-layout', profileLayout)
+
+registerPartial('input', input)
+registerPartial('main-form', mainForm)
+registerPartial('button', button)
+registerPartial('link', link)
+registerPartial('avatar', avatar)
+
+registerPartial('profile-input', profileInput)
+registerPartial('profile-form', profileForm)
+registerPartial('profile-change', profileChange)
+registerPartial('password-change', passwordChange)
+
+Handlebars.registerHelper('each', function (context, options) {
+  var ret = ''
 
   for (var i = 0, j = context.length; i < j; i++) {
-    ret = ret + options.fn(context[i]);
+    ret = ret + options.fn(context[i])
   }
 
-  return ret;
-});
-
-const listFormLoginPage = [
-  {
-    label: 'Логин',
-    type: 'text',
-    name: 'login'
-  },
-  {
-    label: 'Пароль',
-    type: 'password',
-    name: 'password'
-  }
-]
-
-const listFormSigninPage = [
-  {
-    label: 'Почта',
-    type: 'text',
-    name: 'email'
-  },
-  {
-    label: 'Логин',
-    type: 'text',
-    name: 'login'
-  },
-  {
-    label: 'Имя',
-    type: 'text',
-    name: 'first_name'
-  },
-  {
-    label: 'Фамилия',
-    type: 'text',
-    name: 'second_name'
-  },
-  {
-    label: 'Телефон',
-    type: 'tel',
-    name: 'phone'
-  },
-  {
-    label: 'Пароль',
-    type: 'password',
-    name: 'password'
-  },
-  {
-    label: 'Пароль (ещё раз)',
-    type: 'password',
-    name: 'password'
-  }
-]
+  return ret
+})
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('#app')
 
   const pathname = location.pathname
-  console.log(pathname)
+
+  const render = getRender(root)
+
   switch (pathname) {
     case '/login':
-      root.innerHTML = render(login, { listForm: listFormLoginPage })
-      break;
+      render(login, { listForm: listFormLoginPage })
+      break
 
     case '/signin':
-      root.innerHTML = render(signin, { listForm: listFormSigninPage })
-      break;
+      render(signin, { listForm: listFormSigninPage })
+      break
+
+    case '/profile':
+      render(profile, { listForm: listFormProfilePage, username: 'Иван' })
+      break
+
+    case '/profile-change':
+      render(profileChange, { listForm: listFormProfileChangePage })
+      break
+
+    case '/password-change':
+      render(profileChange, { listForm: listFormPasswordChangePage })
+      break
 
     case '/404':
-      root.innerHTML = render(errorPage, { errorNumber: 404, desc: 'Не туда попали' })
-      break;
+      render(errorPage, { errorNumber: 404, desc: 'Не туда попали' })
+      break
 
     case '/500':
-      root.innerHTML = render(errorPage, { errorNumber: 500, desc: 'Мы уже фиксим'})
-      break;
-  
+      render(errorPage, { errorNumber: 500, desc: 'Мы уже фиксим' })
+      break
+
     default:
-      root.innerHTML = render(index)
-      break;
+      render(index)
+      break
   }
 })

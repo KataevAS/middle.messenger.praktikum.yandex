@@ -1,0 +1,31 @@
+.username {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 60px;
+}
+
+.info {
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.link {
+  width: 100%;
+  font-size: 13px;
+  padding: 10px 0;
+  border-bottom: 1px solid #EAEAEA;
+  text-align: left;
+}
+
+.link:first-child {
+  padding: 0 0 10px;
+}
+
+.link:last-child {
+  padding: 10px 0 0;
+  border: none;
+}
+
+.exitLink {
+  color: #F00;
+}
