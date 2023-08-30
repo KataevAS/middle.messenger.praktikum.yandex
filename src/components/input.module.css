@@ -6,7 +6,7 @@
 .label {
   display: block;
   width: 0;
-  color: #999;
+  color: var(--hard-gray);
   font-size: 13px;
   line-height: 1;
   font-style: normal;
@@ -25,7 +25,7 @@
   font-weight: 500;
   line-height: 13px;
   border: none;
-  border-bottom: 1px solid #3369F3;
+  border-bottom: 1px solid var(--blue);
   order: 2;
   z-index: 1;
   background-color: transparent;

@@ -4,9 +4,22 @@ export default `
   <div class='${styles.wrapper} {{addClass}}'>
     <label>{{label}}</label>
     {{#if disabled}}
-      <input class='${styles.input}' type='{{type}}' value='{{value}}' placeholder='{{placeholder}}' autocomplete="off" disabled />
+      <input
+        class='${styles.input}'
+         type='{{type}}'
+         name='{{name}}'
+         value='{{value}}'
+         placeholder='{{placeholder}}'
+         autocomplete="off"
+         disabled />
     {{else}}
-      <input class='${styles.input}' type='{{type}}' value='{{value}}' placeholder={{placeholder}} autocomplete="off" />
+      <input
+       class='${styles.input}'
+       type='{{type}}'
+       name='{{name}}'
+       value='{{value}}'
+       placeholder={{placeholder}}
+       autocomplete="off" />
     {{/if}}
   </div>
 `

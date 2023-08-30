@@ -2,11 +2,11 @@
   width: 100%;
   padding: 12px;
   border-radius: 8px;
-  background-color: #3369F3;
+  background-color: var(--blue);
   outline: none;
   border: none;
   cursor: pointer;
-  color: #fff;
+  color: var(--white);
   font-size: 13px;
   margin-top: auto;
 }

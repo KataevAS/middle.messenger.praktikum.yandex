@@ -10,7 +10,7 @@
 .input::placeholder {
   width: 100%;
   border: none;
-  color: #999;
+  color: var(--hard-gray);
   margin-left: 10px;
   text-align: end;
 

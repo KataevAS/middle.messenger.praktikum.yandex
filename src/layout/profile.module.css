@@ -6,8 +6,8 @@
 .forward {
   width: 65px;
   height: 100%;
-  background-color: #FBFBFB;
-  border-right: 1px solid #EAEAEA;
+  background-color: var(--easy-white);
+  border-right: 1px solid var(--gray);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,12 +60,12 @@
   &::before {
     content: '';
     display: block;
-    background-color: rgba(0,0,0,.5);
+    background-color: var(----black-overlay);
   }
 
   &::after {
     content: 'Поменять аватар';
-    color: #fff;
+    color: var(--white);
     display: flex;
     align-items: center;
     max-width: 100px;

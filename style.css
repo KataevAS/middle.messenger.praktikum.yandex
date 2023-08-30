@@ -13,8 +13,19 @@ ul {
 
 body {
   margin: 0;
-  color: #1E1E1E;
+  color: var(--main-black);
   font-family: Inter;
   line-height: 1;
   font-size: 13px;
+  --main-black: #1E1E1E;
+  --white: #ffffff;
+  --easy-white: #FBFBFB;
+  --black: #000000;
+  --black-shadow: rgba(0, 0, 0, 0.14);
+  --black-overlay: rgba(0,0,0,.5);
+  --gray: #EAEAEA;
+  --easy-gray: #EFEFEF;
+  --hard-gray: #999;
+  --red-warning: #F00;
+  --blue: #3369F3;
 }

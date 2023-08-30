@@ -13,7 +13,7 @@
   width: 100%;
   font-size: 13px;
   padding: 10px 0;
-  border-bottom: 1px solid #EAEAEA;
+  border-bottom: 1px solid var(--gray);
   text-align: left;
 
   &:first-child {
@@ -27,5 +27,5 @@
 }
 
 .exitLink {
-  color: #F00;
+  color: var(--red-warning);
 }
