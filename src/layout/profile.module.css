@@ -14,7 +14,7 @@
 }
 
 .arrow {
-  background: no-repeat url(../../../public/svg/arrow.svg);
+  background: no-repeat url("/svg/arrow.svg");
   display: block;
   width: 28px;
   height: 28px;

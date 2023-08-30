@@ -17,5 +17,5 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: 50% 50% no-repeat url("../../../../public/images/default_avatar.png") #EFEFEF;
+  background: 50% 50% no-repeat url("/images/default_avatar.png") #EFEFEF;
 }
