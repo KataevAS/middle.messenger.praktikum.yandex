@@ -9,6 +9,10 @@ app.get('/', (req, res) => {
   res.status().send(200)
 })
 
+app.get('*', (req, res) => {
+  res.status(200).sendFile(`${__dirname}/dist/`)
+})
+
 app.listen(PORT, function () {
   console.log(`Server on port: ${PORT}!`)
 })
