@@ -3,7 +3,6 @@
 `npm run dev` - запуск dev режима
 `npm run build` - сборка проекта
 `npm run start` - сборка и запуск проекта
-`node server.cjs` - локальный запуск express с разрачей статики из dist
 
 ## Макеты
 [Figma](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1&mode=dev)
