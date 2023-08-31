@@ -1,0 +1,12 @@
+.root {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--blue);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: var(--white);
+  font-size: 13px;
+  margin-top: auto;
+}

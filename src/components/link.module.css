@@ -1,0 +1,10 @@
+.link {
+  color: var(--blue);
+  font-size: 11px;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

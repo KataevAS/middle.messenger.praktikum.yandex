@@ -1,0 +1,31 @@
+*, *::before, *::after  {
+  box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,h6,p,ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+body {
+  margin: 0;
+  color: var(--main-black);
+  font-family: Inter;
+  line-height: 1;
+  font-size: 13px;
+  --main-black: #1E1E1E;
+  --white: #ffffff;
+  --easy-white: #FBFBFB;
+  --black: #000000;
+  --black-shadow: rgba(0, 0, 0, 0.14);
+  --black-overlay: rgba(0,0,0,.5);
+  --gray: #EAEAEA;
+  --easy-gray: #EFEFEF;
+  --hard-gray: #999;
+  --red-warning: #F00;
+  --blue: #3369F3;
+}
