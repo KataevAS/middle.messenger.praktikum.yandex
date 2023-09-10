@@ -6,11 +6,7 @@ export default `
     <ul>
     {{#each listForm}}
       <li class=${styles.field}>
-        {{> input
-          label=label
-          type=type
-          name=name
-        }}
+        {{> input }}
       </li>
     {{/each}}
     </ul>

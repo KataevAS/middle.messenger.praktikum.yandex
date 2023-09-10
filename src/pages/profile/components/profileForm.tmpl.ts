@@ -6,24 +6,13 @@ export default `
       {{#if disabled}}
         {{#each listForm}}
           <li class=${styles.field}>
-            {{> profile-input
-              label=label
-              type=type
-              name=name
-              placeholder=placeholder
-              disabled=true
-            }}
+            {{> profile-input disabled=true }}
           </li>
         {{/each}}
       {{else}}
         {{#each listForm}}
           <li class=${styles.field}>
-            {{> profile-input
-              label=label
-              type=type
-              name=name
-              placeholder=placeholder
-            }}
+            {{> profile-input }}
           </li>
         {{/each}}
       {{/if}}

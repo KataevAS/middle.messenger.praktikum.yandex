@@ -27,13 +27,11 @@ import profileInput from './src/pages/profile/components/profileInput.tmpl'
 
 import errorPage from './src/pages/error/error.tmpl'
 
-const getRender = (root) => {
-  return (tmpl, context) => {
-    root.innerHTML = Handlebars.compile(tmpl)(context)
-  }
+const getRender = (root: Element) => (tmpl: any, context?: unknown) => {
+  root.innerHTML = Handlebars.compile(tmpl)(context)
 }
 
-const registerPartial = (name, tmpl) => {
+const registerPartial = (name: string, tmpl: string): void => {
   Handlebars.registerPartial(name, tmpl)
 }
 
@@ -51,11 +49,11 @@ registerPartial('profile-form', profileForm)
 registerPartial('profile-change', profileChange)
 registerPartial('password-change', passwordChange)
 
-Handlebars.registerHelper('each', function (context, options) {
-  var ret = ''
+Handlebars.registerHelper('each', (context, options) => {
+  let ret = ''
 
-  for (var i = 0, j = context.length; i < j; i++) {
-    ret = ret + options.fn(context[i])
+  for (let i = 0, j = context.length; i < j; i++) {
+    ret += options.fn(context[i])
   }
 
   return ret
@@ -64,7 +62,9 @@ Handlebars.registerHelper('each', function (context, options) {
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('#app')
 
-  const pathname = location.pathname
+  const { pathname } = window.location
+
+  if (!root) return
 
   const render = getRender(root)
 

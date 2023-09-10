@@ -46,7 +46,7 @@
   cursor: pointer;
 
   &::before,
-  &::after  {
+  &::after {
     position: absolute;
     top: 0;
     left: 0;
@@ -60,7 +60,7 @@
   &::before {
     content: '';
     display: block;
-    background-color: var(----black-overlay);
+    background-color: var(--black-overlay);
   }
 
   &::after {
@@ -76,6 +76,6 @@
 }
 
 .avatar:hover.avatar::after,
-.avatar:hover.avatar::before  {
+.avatar:hover.avatar::before {
   visibility: visible;
 }
