@@ -1,59 +1,73 @@
-import Handlebars from 'handlebars'
+// Core
+import Block, { BlockProps } from './src/core/Block'
+import { registerPartial, registerHelper, registerComponent } from './src/core/Handlebars'
+// Layout
+import MainLayout from './src/layout/Main'
+import ProfileLayout from './src/layout/Profile'
+// Pages
+import ChatPage from './src/pages/chat'
+import IndexPage from './src/pages'
+import SigninPage from './src/pages/signin'
+import LoginPage from './src/pages/login'
+import ProfilePage from './src/pages/profile'
+import PasswordChangePage from './src/pages/passwordChange'
+import ProfileChangePage from './src/pages/profileChange'
+import ErrorPage from './src/pages/error'
+// Components
+import Avatar from './src/components/Avatar'
+import Button from './src/components/Button'
+import MainInputField from './src/components/MainInputField'
+import Link from './src/components/Link'
+import MainForm from './src/components/MainForm'
+import ProfileForm from './src/components/ProfileForm'
+import Input from './src/components/Input'
+import ProfileInputField from './src/components/ProfileInputField'
+import ErrorLine from './src/components/ErrorLine'
+import ChatList from './src/components/ChatList'
+import Chat from './src/components/Chat'
+import InputSearch from './src/components/InputSearch'
+import ChatFilteredList from './src/components/ChatFilteredList'
+import ChatCard from './src/components/ChatCard'
+import MessageForm from './src/components/MessageForm'
+import MessageField from './src/components/MessageField'
+import MessagesList from './src/components/MessagesList'
+import Message from './src/components/Message'
+import DateComponent from './src/components/DateComponent'
 
-import mainLayout from './src/layout/main.tmpl'
-import profileLayout from './src/layout/profile.tmpl'
-
-import input from './src/components/input.tmpl'
-import button from './src/components/button.tmpl'
-import link from './src/components/link.tmpl'
-import avatar from './src/components/avatar.tmpl'
-
-import index from './src/pages/index.tmpl'
-
-import mainForm from './src/pages/home/components/mainForm.tmpl'
-import login from './src/pages/home/modules/login/login.tmpl'
-import { listFormLoginPage } from './src/pages/home/modules/login/constants'
-import signin from './src/pages/home/modules/signin/signin.tmpl'
-import { listFormSigninPage } from './src/pages/home/modules/signin/constants'
-
-import profile from './src/pages/profile/profile.tmpl'
-import { listFormProfilePage } from './src/pages/profile/constants'
-import profileChange from './src/pages/profile/modules/profileChange/profileChange.tmpl'
-import { listFormProfileChangePage } from './src/pages/profile/modules/profileChange/constants'
-import passwordChange from './src/pages/profile/modules/passwordChange/passwordChange.tmpl'
-import { listFormPasswordChangePage } from './src/pages/profile/modules/passwordChange/constants'
-import profileForm from './src/pages/profile/components/profileForm.tmpl'
-import profileInput from './src/pages/profile/components/profileInput.tmpl'
-
-import errorPage from './src/pages/error/error.tmpl'
-
-const getRender = (root: Element) => (tmpl: any, context?: unknown) => {
-  root.innerHTML = Handlebars.compile(tmpl)(context)
+const getRender = (root: Element) => (page: typeof Block, props?: BlockProps) => {
+  const Component = page
+  const component = new Component(props)
+  root?.append(component.getContent()!)
 }
 
-const registerPartial = (name: string, tmpl: string): void => {
-  Handlebars.registerPartial(name, tmpl)
-}
+registerPartial('ProfileLayout', ProfileLayout)
+registerPartial('MainLayout', MainLayout)
 
-registerPartial('main-layout', mainLayout)
-registerPartial('profile-layout', profileLayout)
+registerComponent('Avatar', Avatar)
+registerComponent('Button', Button)
+registerComponent('MainInputField', MainInputField)
+registerComponent('Link', Link)
+registerComponent('MainForm', MainForm)
+registerComponent('ProfileForm', ProfileForm)
+registerComponent('Input', Input)
+registerComponent('ProfileInputField', ProfileInputField)
+registerComponent('ErrorLine', ErrorLine)
+registerComponent('ChatList', ChatList)
+registerComponent('Chat', Chat)
+registerComponent('InputSearch', InputSearch)
+registerComponent('ChatFilteredList', ChatFilteredList)
+registerComponent('ChatCard', ChatCard)
+registerComponent('MessageForm', MessageForm)
+registerComponent('MessageField', MessageField)
+registerComponent('MessagesList', MessagesList)
+registerComponent('Message', Message)
+registerComponent('DateComponent', DateComponent)
 
-registerPartial('input', input)
-registerPartial('main-form', mainForm)
-registerPartial('button', button)
-registerPartial('link', link)
-registerPartial('avatar', avatar)
-
-registerPartial('profile-input', profileInput)
-registerPartial('profile-form', profileForm)
-registerPartial('profile-change', profileChange)
-registerPartial('password-change', passwordChange)
-
-Handlebars.registerHelper('each', (context, options) => {
+registerHelper('each', (context, options) => {
   let ret = ''
 
   for (let i = 0, j = context.length; i < j; i++) {
-    ret += options.fn(context[i])
+    ret += options.fn({ ...context[i], ...options.data.root, index: i })
   }
 
   return ret
@@ -70,35 +84,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   switch (pathname) {
     case '/login':
-      render(login, { listForm: listFormLoginPage })
+      render(LoginPage)
       break
 
     case '/signin':
-      render(signin, { listForm: listFormSigninPage })
+      render(SigninPage)
       break
 
     case '/profile':
-      render(profile, { listForm: listFormProfilePage, username: 'Иван' })
+      render(ProfilePage)
+      break
+
+    case '/chat':
+      render(ChatPage)
       break
 
     case '/profile-change':
-      render(profileChange, { listForm: listFormProfileChangePage })
+      render(ProfileChangePage)
       break
 
     case '/password-change':
-      render(profileChange, { listForm: listFormPasswordChangePage })
+      render(PasswordChangePage)
       break
 
     case '/404':
-      render(errorPage, { errorNumber: 404, desc: 'Не туда попали' })
+      render(ErrorPage, { errorNumber: 404, desc: 'Не туда попали' })
       break
 
     case '/500':
-      render(errorPage, { errorNumber: 500, desc: 'Мы уже фиксим' })
+      render(ErrorPage, { errorNumber: 500, desc: 'Мы уже фиксим' })
       break
 
     default:
-      render(index)
+      render(IndexPage)
       break
   }
 })

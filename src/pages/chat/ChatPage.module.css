@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  height: 100vh;
+}
+
+.chatsList {
+  min-width: 310px;
+  max-width: 310px;
+}
+
+.chat {
+  width: 100%;
+}

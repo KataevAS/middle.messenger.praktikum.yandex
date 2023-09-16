@@ -1,0 +1,81 @@
+.main {
+  display: flex;
+  height: 100vh;
+}
+
+.forward {
+  width: 65px;
+  height: 100%;
+  background-color: var(--easy-white);
+  border-right: 1px solid var(--gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  background: no-repeat url("/svg/arrow.svg");
+  display: block;
+  width: 29px;
+  height: 29px;
+  border: none;
+  cursor: pointer;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0 150px;
+}
+
+.profile {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 510px;
+}
+
+.avatar {
+  min-width: 130px;
+  min-height: 130px;
+  margin-bottom: 20px;
+  position: relative;
+  cursor: pointer;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    visibility: hidden;
+    border-radius: 50%;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    background-color: var(--black-overlay);
+  }
+
+  &::after {
+    content: 'Поменять аватар';
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    max-width: 100px;
+    left: 50%;
+    margin-left: -50px;
+    text-align: center;
+  }
+}
+
+.avatar:hover.avatar::after,
+.avatar:hover.avatar::before {
+  visibility: visible;
+}

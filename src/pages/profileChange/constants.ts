@@ -1,6 +1,6 @@
 import { FIELDS } from '../../constants'
 
-export const listFormProfilePage = [
+export const listFormProfileChangePage = [
   {
     label: 'Почта',
     type: 'text',
@@ -11,7 +11,7 @@ export const listFormProfilePage = [
     label: 'Логин',
     type: 'text',
     name: FIELDS.LOGIN,
-    value: 'ivanivanov'
+    value: '123'
   },
   {
     label: 'Имя',
@@ -35,6 +35,6 @@ export const listFormProfilePage = [
     label: 'Телефон',
     type: 'tel',
     name: FIELDS.PHONE,
-    value: '+7 (909) 967 30 30'
+    value: '+79099673030'
   }
 ]

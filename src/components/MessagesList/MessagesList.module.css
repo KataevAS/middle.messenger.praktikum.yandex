@@ -1,0 +1,9 @@
+.root {
+  margin-top: auto;
+  overflow-y: auto;
+}
+
+.field {
+  margin-bottom: 20px;
+  display: flex;
+}
