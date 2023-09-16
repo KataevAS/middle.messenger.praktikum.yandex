@@ -20,7 +20,6 @@ export class Form extends Block {
     super({
       ...props,
       onChange: (name: Field['name'], value: Field['value']) => {
-        console.log(name, value)
         this.fields[name] = value
       }
     })

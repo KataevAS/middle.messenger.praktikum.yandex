@@ -12,7 +12,8 @@ export class Block {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render'
+    FLOW_RENDER: 'flow:render',
+    FLOW_CWU: 'flow:component-will-unmount'
   }
 
   public id = nanoid(6)
@@ -65,11 +66,20 @@ export class Block {
     })
   }
 
+  _removeEvents() {
+    const { events = {} } = this.props as { events: Record<string, (e: Event) => void> }
+
+    Object.keys(events).forEach((eventName) => {
+      this._element?.removeEventListener(eventName, events[eventName])
+    })
+  }
+
   _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this))
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
+    eventBus.on(Block.EVENTS.FLOW_CWU, this._componentWillUnmount.bind(this))
   }
 
   private _init() {
@@ -90,6 +100,19 @@ export class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM)
 
     Object.values(this.children).forEach((child) => child.dispatchComponentDidMount())
+  }
+
+  _componentWillUnmount() {
+    this.componentWillUnmount()
+    this._removeEvents()
+  }
+
+  componentWillUnmount() {}
+
+  public dispatchComponentWillUnmount() {
+    Object.values(this.children).forEach((child) => child.dispatchComponentWillUnmount())
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CWU)
   }
 
   private _componentDidUpdate() {
