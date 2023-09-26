@@ -1,0 +1,34 @@
+.root {
+  background-color: var(--easy-white);
+  height: 100%;
+  border-right: 1px solid var(--gray);
+}
+
+.header {
+  padding: 21px 10px 23px;
+}
+
+.profileLink {
+  display: block;
+  margin-left: auto;
+  width: fit-content;
+  font-size: 12px;
+  color: var(--hard-gray);
+  text-decoration: none;
+}
+
+.arrow {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid var(--hard-gray);
+  border-bottom: 1px solid var(--hard-gray);
+  margin-left: 3px;
+  transform: rotate(-45deg);
+}
+
+.search {
+  padding: 0 0 14px;
+  margin: 0 10px;
+  border-bottom: 1px solid var(--gray);
+}

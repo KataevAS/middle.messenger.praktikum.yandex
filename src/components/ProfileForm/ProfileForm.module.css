@@ -1,0 +1,44 @@
+.form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  padding: 10px 0;
+
+  &:first-child {
+    padding: 0 0 10px;
+  }
+
+  &:last-child {
+    padding: 10px 0 0;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--gray);
+  }
+}
+
+.btn {
+  min-width: 280px;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.btn:disabled,
+.btn [disabled] {
+  user-select: none;
+  background-color: var(--hard-gray);
+}
+
+.errorLine {
+  width: 100%;
+  height: 100px;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red-error);
+}

@@ -1,0 +1,34 @@
+.root {
+  padding: 11px;
+  max-width: 70%;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 500;
+  position: relative;
+}
+
+.in {
+  border-top-left-radius: 0;
+  background-color: var(--middle-gray);
+}
+
+.out {
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+  background-color: var(--easy-blue);
+}
+
+.text {
+  white-space: pre-wrap;
+}
+
+.margin {
+  margin-right: 45px;
+}
+
+.date {
+  position: absolute;
+  right: 11px;
+  bottom: 8px;
+}

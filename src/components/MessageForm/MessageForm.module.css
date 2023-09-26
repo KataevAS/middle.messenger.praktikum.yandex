@@ -1,0 +1,23 @@
+.addFileLabel {
+  display: block;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  background: no-repeat url("/svg/addFile.svg");
+  margin-right: 10px;
+}
+
+.addFileInput {
+  display: none;
+}
+
+.arrow {
+  background: no-repeat url("/svg/arrow.svg");
+  display: block;
+  width: 29px;
+  height: 29px;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  transform: rotate(180deg);
+}
