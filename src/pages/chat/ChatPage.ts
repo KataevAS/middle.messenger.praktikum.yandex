@@ -22,6 +22,9 @@ export class ChatPage extends Block {
   constructor() {
     super({
       userId: localStorage.getItem('user'),
+      createNewChatCb: () => {
+        this.getChats()
+      },
       setActiveChat: (id: number) => {
         this.activeChat = this.refs.chatList.props.chatList.find((chat) => chat.id === id)
 
@@ -49,7 +52,7 @@ export class ChatPage extends Block {
                 })
               })
 
-              this.socket.on(SocketEvent.Message, (data: { content: string, type: string }) => {
+              this.socket.on(SocketEvent.Message, (data: { content: string; type: string }) => {
                 if (!this.activeChat) {
                   return
                 }
@@ -92,24 +95,37 @@ export class ChatPage extends Block {
     })
   }
 
-  componentDidMount() {
-    if (!localStorage.getItem('user')) {
-      const router = new Router()
-      router.go(PATH.LOGIN)
-    }
+  getChats(props?: { offset?: number; limit?: number }) {
+    const offset = props?.offset || 0
+    const limit = props?.limit || 10
 
-    API.Chat.getChat({ offset: 0, limit: 10 }).then((res) => {
+    API.Chat.getChat({ offset, limit }).then((res) => {
       if ('data' in res) {
         this.refs.chatList.setProps({ chatList: res.data })
       }
     })
   }
 
+  componentDidMount() {
+    if (!localStorage.getItem('user')) {
+      const router = new Router()
+      router.go(PATH.LOGIN)
+    }
+
+    this.getChats()
+  }
+
   protected render(): string {
     return `
       <main class=${styles.root}>
         <section class=${styles.chatsList}>
-          {{{ ChatList chatList=chatList userId=userId setActiveChat=setActiveChat ref='chatList' }}}
+          {{{ ChatList
+            chatList=chatList
+            userId=userId
+            setActiveChat=setActiveChat
+            createNewChatCb=createNewChatCb
+            ref='chatList'
+          }}}
         </section>
         <section class=${styles.chat}>
          {{{ Chat chat=chat chatId=chatId userId=userId socket=socket ref='chat' }}}

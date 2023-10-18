@@ -22,7 +22,7 @@ export class ProfilePage extends Block {
   }
 
   constructor() {
-    super({ listForm: listFormProfilePage, username: 'Иван' })
+    super({ listForm: listFormProfilePage, username: '' })
 
     this.refs.exit.setProps({
       events: {
@@ -68,6 +68,10 @@ export class ProfilePage extends Block {
               ...item,
               value: userData[item.name]
             }
+          })
+
+          this.setProps({
+            username: userData.first_name
           })
 
           this.refs.form.setProps({ listForm: newListForm })

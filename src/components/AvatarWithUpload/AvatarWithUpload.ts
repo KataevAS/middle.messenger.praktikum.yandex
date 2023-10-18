@@ -1,3 +1,4 @@
+import { HOST } from '../../constants'
 import API from '../../core/API'
 import Block from '../../core/Block'
 import Avatar from '../Avatar'
@@ -32,7 +33,7 @@ export class AvatarWithUpload extends Block {
         API.User.uploadAvatar(formData).then((res) => {
           if (!res.error && 'data' in res && res.data) {
             localStorage.setItem('userAva', res.data.avatar)
-            const src = encodeURI(`https://ya-praktikum.tech/api/v2/resources${localStorage.getItem('userAva')}`)
+            const src = encodeURI(`${HOST}/resources${localStorage.getItem('userAva')}`)
             this.refs.avatar.setProps({ src })
           }
         })
@@ -52,7 +53,7 @@ export class AvatarWithUpload extends Block {
   }
 
   protected render(): string {
-    const src = encodeURI(`https://ya-praktikum.tech/api/v2/resources${localStorage.getItem('userAva')}`)
+    const src = encodeURI(`${HOST}/resources${localStorage.getItem('userAva')}`)
     return `
       <div class=${styles.avatar}>
         {{{ Avatar withDefault=true src='${src}' ref='avatar' }}}

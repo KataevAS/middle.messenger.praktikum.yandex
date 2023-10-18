@@ -1,11 +1,15 @@
 import { FIELDS } from '../../constants'
 import API from '../../core/API'
 import Block from '../../core/Block'
+import { Chat } from '../../types/common'
 import Modal from '../Modal'
 
 import styles from './ChatFilteredList.module.css'
 
-type Props = Record<string, string>
+type Props = {
+  createNewChatCb: () => void
+  chatList: Chat[]
+}
 
 export const fields = [
   {
@@ -17,6 +21,8 @@ export const fields = [
 ]
 
 export class ChatFilteredList extends Block {
+  props: Props
+
   refs: {
     modal: Modal
   }
@@ -26,9 +32,10 @@ export class ChatFilteredList extends Block {
       ...props,
       listForm: fields,
       onSubmitModal: (data: Record<string, unknown>) => {
-        console.log('DATA', data)
-
         API.Chat.createChat({ title: data[FIELDS.DISPLAY_NAME] })
+          .then(() => {
+            this.props.createNewChatCb()
+          })
       },
       onClickAdd: () => {
         this.refs.modal.open()

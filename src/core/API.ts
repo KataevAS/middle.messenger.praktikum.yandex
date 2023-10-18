@@ -1,22 +1,21 @@
+import { HOST } from '../constants'
 import { APIChat } from './APIChat'
 import { HTTPTransport } from './HTTPTransport'
 
 class APIUser {
   http = new HTTPTransport()
 
-  instance = 'https://ya-praktikum.tech/api/v2'
-
   async createUser(userData: Record<string, unknown>) {
     return this.http
-      .post(`${this.instance}/auth/signup`, {
+      .post(`${HOST}/auth/signup`, {
         data: userData
       })
       .then((res) => {
         if (res.status === 200) {
-          return { data: JSON.parse(res.response) }
+          return { data: res.response }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса createUser: ', JSON.parse(res.response))
+          console.error('Ошибка запроса createUser: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации createUser')
@@ -33,7 +32,7 @@ class APIUser {
 
   async login(userData: Record<string, unknown>) {
     return this.http
-      .post(`${this.instance}/auth/signin`, {
+      .post(`${HOST}/auth/signin`, {
         data: userData
       })
       .then((res) => {
@@ -42,7 +41,7 @@ class APIUser {
           return { data: 'ok' }
         }
         if (res.status === 400) {
-          const response = JSON.parse(res.response)
+          const { response } = res
           if (response?.reason === 'User already in system') {
             return { data: 'ok' }
           }
@@ -63,7 +62,7 @@ class APIUser {
 
   async logout() {
     return this.http
-      .post(`${this.instance}/auth/logout`)
+      .post(`${HOST}/auth/logout`)
       .then((res) => {
         if (res.status === 200) {
           return { data: 'ok' }
@@ -77,13 +76,13 @@ class APIUser {
 
   async getUser() {
     return this.http
-      .get(`${this.instance}/auth/user`)
+      .get(`${HOST}/auth/user`)
       .then((res) => {
         if (res.status === 200) {
-          return { data: JSON.parse(res.response) }
+          return { data: res.response }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса getUser: ', JSON.parse(res.response))
+          console.error('Ошибка запроса getUser: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации getUser')
@@ -97,15 +96,15 @@ class APIUser {
 
   async changeUser(userData: Record<string, unknown>) {
     return this.http
-      .put(`${this.instance}/user/profile`, {
+      .put(`${HOST}/user/profile`, {
         data: userData
       })
       .then((res) => {
         if (res.status === 200) {
-          return { data: JSON.parse(res.response) }
+          return { data: res.response }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса changeUser: ', JSON.parse(res.response))
+          console.error('Ошибка запроса changeUser: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации changeUser')
@@ -119,7 +118,7 @@ class APIUser {
 
   async changePassword(userData: Record<string, unknown>) {
     return this.http
-      .put(`${this.instance}/user/password`, {
+      .put(`${HOST}/user/password`, {
         data: userData
       })
       .then((res) => {
@@ -127,7 +126,7 @@ class APIUser {
           return { data: 'ok' }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса changePassword: ', JSON.parse(res.response))
+          console.error('Ошибка запроса changePassword: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации changePassword')
@@ -141,15 +140,15 @@ class APIUser {
 
   async uploadAvatar(userData: FormData) {
     return this.http
-      .put(`${this.instance}/user/profile/avatar`, {
+      .put(`${HOST}/user/profile/avatar`, {
         data: userData
       })
       .then((res) => {
         if (res.status === 200) {
-          return { data: JSON.parse(res.response) }
+          return { data: res.response }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса uploadAvatar: ', JSON.parse(res.response))
+          console.error('Ошибка запроса uploadAvatar: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации uploadAvatar')

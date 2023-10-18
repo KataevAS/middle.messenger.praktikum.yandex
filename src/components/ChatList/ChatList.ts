@@ -44,6 +44,7 @@ export class ChatList extends Block {
           userId=userId
           setActiveChat=setActiveChat
           activeChatId=activeChatId
+          createNewChatCb=createNewChatCb
         }}}
 
       </div>

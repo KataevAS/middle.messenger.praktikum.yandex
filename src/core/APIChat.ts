@@ -1,18 +1,17 @@
+import { HOST } from '../constants'
 import { HTTPTransport } from './HTTPTransport'
 
 export class APIChat {
   http = new HTTPTransport()
 
-  instance = 'https://ya-praktikum.tech/api/v2'
-
   async getChat(data: Record<string, unknown>) {
     return this.http
-      .get(`${this.instance}/chats`, {
+      .get(`${HOST}/chats`, {
         data
       })
       .then((res) => {
         if (res.status === 200) {
-          return { data: JSON.parse(res.response) }
+          return { data: res.response }
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации getChat')
@@ -29,15 +28,15 @@ export class APIChat {
 
   async createChat(data: Record<string, unknown>) {
     return this.http
-      .post(`${this.instance}/chats`, {
+      .post(`${HOST}/chats`, {
         data
       })
       .then((res) => {
         if (res.status === 200) {
-          return { data: JSON.parse(res.response) }
+          return { data: res.response }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса createChat: ', JSON.parse(res.response))
+          console.error('Ошибка запроса createChat: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации createChat')
@@ -54,7 +53,7 @@ export class APIChat {
 
   async addUser(data: Record<string, unknown>) {
     return this.http
-      .put(`${this.instance}/chats/users`, {
+      .put(`${HOST}/chats/users`, {
         data
       })
       .then((res) => {
@@ -62,7 +61,7 @@ export class APIChat {
           return { data: 'ok' }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса addUser: ', JSON.parse(res.response))
+          console.error('Ошибка запроса addUser: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации addUser')
@@ -79,7 +78,7 @@ export class APIChat {
 
   async removeUser(data: Record<string, unknown>) {
     return this.http
-      .delete(`${this.instance}/chats/users`, {
+      .delete(`${HOST}/chats/users`, {
         data
       })
       .then((res) => {
@@ -87,7 +86,7 @@ export class APIChat {
           return { data: 'ok' }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса removeUser: ', JSON.parse(res.response))
+          console.error('Ошибка запроса removeUser: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации removeUser')
@@ -108,15 +107,15 @@ export class APIChat {
     }
 
     return this.http
-      .post(`${this.instance}/chats/token/${data.id}`, {
+      .post(`${HOST}/chats/token/${data.id}`, {
         data
       })
       .then((res) => {
         if (res.status === 200) {
-          return { data: JSON.parse(res.response) }
+          return { data: res.response }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса getToketChat: ', JSON.parse(res.response))
+          console.error('Ошибка запроса getToketChat: ', res.response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации getToketChat')

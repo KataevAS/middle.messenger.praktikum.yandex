@@ -17,3 +17,5 @@ export enum PATH {
   MESSENGER = '/messenger',
   PROFILE = '/profile'
 }
+
+export const HOST = 'https://ya-praktikum.tech/api/v2'
