@@ -42,7 +42,11 @@ class APIUser {
           return { data: 'ok' }
         }
         if (res.status === 400) {
-          console.error('Ошибка запроса login: ', JSON.parse(res.response))
+          const response = JSON.parse(res.response)
+          if (response?.reason === 'User already in system') {
+            return { data: 'ok' }
+          }
+          console.error('Ошибка запроса login: ', response)
         }
         if (res.status === 401) {
           console.error('Ошибка авторизации login')
