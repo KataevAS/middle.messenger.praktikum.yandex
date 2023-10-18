@@ -1,15 +1,10 @@
-.modal {
-  border-radius: 12px;
+.form {
   background-color: var(--white);
   padding: 50px 40px 40px;
   min-width: 300px;
   z-index: 9999;
-}
-
-.form {
   flex-shrink: 0;
   border-radius: 12px;
-  background: var(--white);
   display: flex;
   flex-direction: column;
 }

@@ -50,32 +50,30 @@ export class ModalForm extends Form {
 
   protected render(): string {
     return `
-
-        <form class='${styles.form} {{addClass}}'>
-          <h1 class='${styles.title}'>{{title}}</h1>
-          <ul>
-            {{#each listForm}}
-              <li class=${styles.field}>
-                {{{ MainInputField
-                  id=id
-                  label=label
-                  type=type
-                  name=name
-                  value=value
-                  placeholder=placeholder
-                  autocomplete='off'
-                  disabled=disabled
-                  onChange=onChange
-                  index=index
-                  required=required
-                  ref=name
-                }}}
-              </li>
-            {{/each}}
-          </ul>
-          {{{ Button addClass='${styles.btn}' name=btnName type='submit' ref='submit' }}}
-        </form>
-
+      <form class='${styles.form} {{addClass}}'>
+        <h1 class='${styles.title}'>{{title}}</h1>
+        <ul>
+          {{#each listForm}}
+            <li class=${styles.field}>
+              {{{ MainInputField
+                id=id
+                label=label
+                type=type
+                name=name
+                value=value
+                placeholder=placeholder
+                autocomplete='off'
+                disabled=disabled
+                onChange=onChange
+                index=index
+                required=required
+                ref=name
+              }}}
+            </li>
+          {{/each}}
+        </ul>
+        {{{ Button addClass='${styles.btn}' name=btnName type='submit' ref='submit' }}}
+      </form>
     `
   }
 }

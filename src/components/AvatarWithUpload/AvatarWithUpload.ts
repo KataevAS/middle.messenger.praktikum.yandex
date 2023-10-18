@@ -57,7 +57,7 @@ export class AvatarWithUpload extends Block {
       <div class=${styles.avatar}>
         {{{ Avatar withDefault=true src='${src}' ref='avatar' }}}
         {{{ Modal
-          title='Добавить чат'
+          title='Добавить аватар'
           btnName='Добавить'
           listForm=listForm
           onSubmit=onSubmitModal
