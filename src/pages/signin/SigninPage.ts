@@ -46,7 +46,7 @@ export class SigninPage extends Block {
               }
 
               if ('data' in res && res.data.id) {
-                localStorage.setItem('user', '1')
+                localStorage.setItem('user', res.data.id)
                 const router = new Router()
                 router.go(PATH.PROFILE)
               }
@@ -59,6 +59,13 @@ export class SigninPage extends Block {
         }
       }
     })
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('user')) {
+      const router = new Router()
+      router.go(PATH.MESSENGER)
+    }
   }
 
   protected render(): string {
