@@ -11,19 +11,29 @@ export class MessagesList extends Block {
     })
   }
 
+  componentDidMount(): void {
+    this.element?.scroll(0, 100000)
+  }
+
   protected render(): string {
+    const messages = `${
+      this.props.messages
+        ? `{{#each messages}}
+                <li class=${styles.field}>
+                  {{{ Message
+                    userId=userId
+                    authorId=user_id
+                    text=content
+                    date=time
+                  }}}
+                </li>
+              {{/each}}`
+        : ''
+    }`
+
     return `
       <ul class=${styles.root}>
-        {{#each messages}}
-          <li class=${styles.field}>
-            {{{ Message
-              userId=userId
-              authorId=authorId
-              text=text
-              date=date
-            }}}
-          </li>
-        {{/each}}
+        ${messages}
       </ul>
     `
   }

@@ -1,14 +1,20 @@
 import { FIELDS } from '../../constants'
 import { InputField } from '../../core/InputField'
 import { ErrorValidate } from '../../utils/validateField'
+import Input from '../Input'
 
 import styles from './ProfileInputField.module.css'
 
 type Props = {
+  name: FIELDS
   setErrors: (name: FIELDS, errors: ErrorValidate[]) => void
 }
 
 export class ProfileInputField extends InputField {
+  props: Props
+
+  refs: Record<FIELDS, Input>
+
   constructor(props: Props) {
     super({
       ...props,

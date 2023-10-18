@@ -1,10 +1,16 @@
+import { FIELDS } from '../../constants'
 import { InputField } from '../../core/InputField'
 
 import styles from './MessageField.module.css'
 
-type Props = Record<string, string>
+type Props = {
+  name: FIELDS
+  isInvalid?: boolean
+}
 
 export class MessageField extends InputField {
+  props: Props
+
   constructor(props: Props) {
     super({
       ...props

@@ -5,36 +5,36 @@ export const listFormProfileChangePage = [
     label: 'Почта',
     type: 'text',
     name: FIELDS.EMAIL,
-    value: 'pochta@yandex.ru'
+    value: ''
   },
   {
     label: 'Логин',
     type: 'text',
     name: FIELDS.LOGIN,
-    value: '123'
+    value: ''
   },
   {
     label: 'Имя',
     type: 'text',
     name: FIELDS.FIRST_NAME,
-    value: 'Иван'
+    value: ''
   },
   {
     label: 'Фамилия',
     type: 'text',
     name: FIELDS.SECOND_NAME,
-    value: 'Иванович'
+    value: ''
   },
   {
     label: 'Имя в чате',
     type: 'text',
     name: FIELDS.DISPLAY_NAME,
-    value: 'Иван'
+    value: ''
   },
   {
     label: 'Телефон',
     type: 'tel',
     name: FIELDS.PHONE,
-    value: '+79099673030'
+    value: ''
   }
 ]

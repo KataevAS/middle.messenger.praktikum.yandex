@@ -2,6 +2,7 @@ import { FIELDS } from '../../constants'
 import { Form } from '../../core/Form'
 import { Field, HTMLElementEvent } from '../../types/common'
 import { ErrorValidate } from '../../utils/validateField'
+import Button from '../Button'
 
 import styles from './ProfileForm.module.css'
 
@@ -16,13 +17,14 @@ interface Props {
 export class ProfileForm extends Form {
   props: Props
 
+  refs: Form['refs'] & Record<'button', Button>
+
   constructor(props: Props) {
     super({
       ...props,
       setErrors: (name: FIELDS, errors: ErrorValidate[]) => {
-        if (name) {
-          this.errors = this.errors.filter((err) => err.name !== name)
-        }
+        this.errors = this.errors.filter((err) => err.name !== name)
+
         this.errors.push(...errors)
         this.setValidate()
       },
@@ -34,7 +36,6 @@ export class ProfileForm extends Form {
           if (props.onSubmit) {
             props.onSubmit()
           }
-
           this.setValidate()
 
           if (!this.errors.length) {
@@ -45,7 +46,6 @@ export class ProfileForm extends Form {
                 result[item.name] = component.value
               }
             })
-            console.log(result)
           }
         }
       }
@@ -53,14 +53,15 @@ export class ProfileForm extends Form {
   }
 
   private setValidate() {
-    console.log(this.errors)
     this.refs.errorLine.setProps({
       text: this.errors[0]?.message || ''
     })
 
-    this.refs.button.setProps({
-      disabled: Boolean(this.errors.length)
-    })
+    if (this.errors.length) {
+      this.refs.button.setDisabled(true)
+    } else {
+      this.refs.button.setDisabled(false)
+    }
   }
 
   protected render(): string {
@@ -86,7 +87,7 @@ export class ProfileForm extends Form {
             </li>
           {{/each}}
         </ul>
-        {{{ ErrorLine class='${styles.errorLine}' text=text ref='errorLine'}}}
+        {{{ ErrorLine text=text ref='errorLine' class='${styles.errorLine} ${this.props.errorLineClass}'}}}
         {{#if btnName}}
           <div class=${styles.btn}>
             {{{ Button name=btnName type='submit' ref='button' }}}

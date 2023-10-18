@@ -1,6 +1,7 @@
 import { Form } from '../../core/Form'
 import { Field, HTMLElementEvent } from '../../types/common'
 import { ErrorValidate } from '../../utils/validateField'
+import Button from '../Button'
 import MainInputField from '../MainInputField'
 
 import styles from './MainForm.module.css'
@@ -11,7 +12,7 @@ type Props = {
 }
 
 export class MainForm extends Form {
-  refs: Record<string, MainInputField>
+  refs: Record<string, MainInputField> & { submit: Button }
 
   constructor(props: Props) {
     super({
@@ -25,19 +26,6 @@ export class MainForm extends Form {
           if (props.onSubmit) {
             props.onSubmit()
           }
-
-          if (!this.errors.length) {
-            const result = {} as Record<string, string>
-            this.props.listForm.forEach((item) => {
-              const component = this.refs[item.name]
-              if ('value' in component && component.value) {
-                result[item.name] = component.value
-              }
-            })
-            console.log(result)
-          } else {
-            this.setValidate()
-          }
         }
       }
     })
@@ -47,7 +35,7 @@ export class MainForm extends Form {
     this.errors.push(...errors)
   }
 
-  private setValidate() {
+  public setValidate() {
     this.errors.forEach((error) => {
       const component = error.name && this.refs[error.name]
 
@@ -80,7 +68,7 @@ export class MainForm extends Form {
           </li>
         {{/each}}
         </ul>
-        {{{ Button name=btnName type='submit' }}}
+        {{{ Button name=btnName type='submit' ref='submit' }}}
         {{{ Link addClass='${styles.link}' href=link title=linkName }}}
       </form>
     `

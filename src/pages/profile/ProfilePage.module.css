@@ -26,6 +26,6 @@
   }
 }
 
-.exitLink {
+.link.exitLink {
   color: var(--red-warning);
 }

@@ -4,17 +4,32 @@ import { ID } from '../../types/common'
 import styles from './ChatCard.module.css'
 
 type Props = {
+  [key: string]: unknown
   id: ID
-  setActiveChage: (id: ID) => void
+  lastMessage: {
+    user: {
+      first_name: string
+      second_name: string
+      display_name: string
+      login: string
+      avatar: unknown
+    }
+    time: string
+    content: string
+    id: number
+  }
+  setActiveChat: (id: ID) => void
 }
 
 export class ChatCard extends Block {
+  props: Props
+
   constructor(props: Props) {
     super({
       ...props,
       events: {
         click: () => {
-          props.setActiveChage(props.id)
+          props.setActiveChat(props.id)
         }
       }
     })
@@ -37,7 +52,7 @@ export class ChatCard extends Block {
           <div class=${styles.info}>
             <div class=${styles.name}>
               <div>{{name}}</div>
-              {{{ DateComponent date=lastMessage.date }}}
+              {{{ DateComponent date=lastMessage.time }}}
             </div>
             <div>
               <div class=${styles.message}>

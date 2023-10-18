@@ -4,7 +4,7 @@ import EventBus from './EventBus'
 
 export interface BlockProps {
   [key: string]: unknown
-  evets?: (e: Event) => void
+  events?: Record<string, (e: Event) => void>
 }
 
 export class Block {
@@ -59,7 +59,7 @@ export class Block {
   }
 
   _addEvents() {
-    const { events = {} } = this.props as { events: Record<string, (e: Event) => void> }
+    const { events = {} } = this.props
 
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName])
@@ -67,7 +67,7 @@ export class Block {
   }
 
   _removeEvents() {
-    const { events = {} } = this.props as { events: Record<string, (e: Event) => void> }
+    const { events = {} } = this.props
 
     Object.keys(events).forEach((eventName) => {
       this._element?.removeEventListener(eventName, events[eventName])
@@ -99,7 +99,9 @@ export class Block {
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM)
 
-    Object.values(this.children).forEach((child) => child.dispatchComponentDidMount())
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount()
+    })
   }
 
   _componentWillUnmount() {
@@ -111,6 +113,8 @@ export class Block {
 
   public dispatchComponentWillUnmount() {
     Object.values(this.children).forEach((child) => child.dispatchComponentWillUnmount())
+
+    this?.element?.remove()
 
     this.eventBus().emit(Block.EVENTS.FLOW_CWU)
   }
@@ -131,6 +135,10 @@ export class Block {
     }
 
     Object.assign(this.props, nextProps)
+
+    Object.values(this.children).forEach((child) => {
+      child.dispatchComponentDidMount()
+    })
   }
 
   get element() {
@@ -160,7 +168,8 @@ export class Block {
 
     temp.innerHTML = html
 
-    contextAndStubs.__children?.forEach(({ embed }: any) => {
+    contextAndStubs.__children?.forEach(({ component, embed }: any) => {
+      this.children[component.constructor.name] = component
       embed(temp.content)
     })
 

@@ -1,0 +1,11 @@
+.addChat {
+  margin: 10px;
+  height: 50px;
+  border: 2px dashed var(--gray);
+  font-size: 30px;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

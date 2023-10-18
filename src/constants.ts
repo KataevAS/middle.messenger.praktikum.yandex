@@ -11,3 +11,9 @@ export enum FIELDS {
   PHONE = 'phone',
   MESSAGE = 'message'
 }
+
+export enum PATH {
+  LOGIN = '/',
+  MESSENGER = '/messenger',
+  PROFILE = '/profile'
+}

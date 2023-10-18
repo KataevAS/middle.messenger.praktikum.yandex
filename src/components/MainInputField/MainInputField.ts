@@ -1,11 +1,17 @@
+import { FIELDS } from '../../constants'
 import { InputField } from '../../core/InputField'
 import { ErrorValidate } from '../../utils/validateField'
 
 import styles from './MainInputField.module.css'
 
-type Props = Record<string, string>
+type Props = {
+  id?: string
+  name: FIELDS
+} & Record<string, string>
 
 export class MainInputField extends InputField {
+  props: Props
+
   constructor(props: Props) {
     super({
       ...props,
@@ -30,6 +36,7 @@ export class MainInputField extends InputField {
       <div class='${styles.wrapper}'>
         {{{ ErrorLine class='${styles.errorLine}' ref='errorLine'}}}
         {{{ Input
+          id=id
           className='${styles.input}'
           label=label
           type=type
@@ -43,7 +50,7 @@ export class MainInputField extends InputField {
           required=required
           ref=ref
         }}}
-        <label class='${styles.label}'>{{ label }}</label>
+        <label ${this.props.id ? `for=${this.props.id}` : ''} class='${styles.label}'>{{ label }}</label>
       </div>
     `
   }

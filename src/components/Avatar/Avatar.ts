@@ -2,12 +2,25 @@ import Block from '../../core/Block'
 
 import styles from './Avatar.module.css'
 
+type Props = {
+  onClick?: () => void
+  withDefault?: boolean
+}
+
 export class Avatar extends Block {
-  constructor(props: any) {
+  props: Props
+
+  constructor(props: Props) {
     super({
       ...props,
-      alt: 'avatar',
-      src: '#'
+      events: {
+        click: () => {
+          if (this.props.onClick) {
+            this.props.onClick()
+          }
+        }
+      },
+      alt: 'avatar'
     })
   }
 

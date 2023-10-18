@@ -1,12 +1,13 @@
+import Input from '../components/Input'
 import { FIELDS } from '../constants'
 import { HTMLElementEvent } from '../types/common'
 import { ErrorValidate, validateField } from '../utils/validateField'
 import Block from './Block'
 
 type Props = {
-  name?: FIELDS
+  name: FIELDS
   value?: string
-  onBlur?: (props?: { name?: FIELDS, value: string }) => void
+  onBlur?: (props?: { name?: FIELDS; value: string }) => void
   onChange?: (name: FIELDS, value: string) => void
 }
 
@@ -16,6 +17,8 @@ export class InputField extends Block {
   value: string
 
   public errors: ErrorValidate[] = []
+
+  props: Props
 
   constructor(props: Props) {
     super({
@@ -49,6 +52,11 @@ export class InputField extends Block {
     }
 
     this.value = props.value || ''
+  }
+
+  getValue() {
+    const el = this.refs[this.props.name] as Input
+    return el.getValue()
   }
 
   public validate() {

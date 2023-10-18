@@ -10,6 +10,6 @@ export class ErrorLine extends Block {
   }
 
   protected render(): string {
-    return '<div class={{class}}>{{text}}</div>'
+    return `<div class='${this.props.class}'>{{text}}</div>`
   }
 }

@@ -23,8 +23,10 @@
 }
 
 .avatar {
-  width: 47px;
-  height: 47px;
+  min-width: 47px;
+  max-width: 47px;
+  min-height: 47px;
+  max-height: 47px;
   margin-right: 10px;
   z-index: 1;
 }
