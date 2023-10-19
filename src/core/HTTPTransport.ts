@@ -44,11 +44,12 @@ export class HTTPTransport {
       xhr.open(method, isGet && !!data && !(data instanceof FormData) ? `${url}?${queryStringify(data)}` : url)
 
       xhr.onload = () => {
-        resolve({
+        const result = {
           ...xhr,
           status: xhr.status,
-          response: JSON.parse(xhr.response)
-        })
+          response: xhr.response === 'OK' ? xhr.response : JSON.parse(xhr.response)
+        }
+        resolve(result)
       }
 
       if (headers) {

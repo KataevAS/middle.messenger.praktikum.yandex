@@ -58,20 +58,30 @@ export class Popup extends Block {
           title: 'Удалить пользователя',
           btnName: 'Удалить',
           onSubmit: (value: { id: string }) => {
-            API.Chat.removeUser({
-              users: [Number(value.id)],
-              chatId: this.props.chat.id
-            })
-              .then((res) => {
-                if (res.error) {
-                  alert(res.error.message)
+            API.Chat.getUsersChat({ id: this.props.chat.id }).then((res) => {
+              if (res && 'data' in res) {
+                if (res.data.find((user: { id: number }) => user.id === Number(value.id))) {
+                  API.Chat.removeUser({
+                    users: [Number(value.id)],
+                    chatId: this.props.chat.id
+                  })
+                    .then((res) => {
+                      if (res.error) {
+                        alert(res.error.message)
+                      } else {
+                        alert('Пользователь успешно удален')
+                      }
+                    })
+                    .catch((err) => {
+                      console.error(err)
+                    })
                 } else {
-                  alert('Пользователь успешно удален')
+                  alert('Пользователя нет в чате')
                 }
-              })
-              .catch((err) => {
-                console.error(err)
-              })
+              } else {
+                alert('Ошибка при удалении полозователя')
+              }
+            })
           }
         })
         this.refs.modal.open()

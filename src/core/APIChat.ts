@@ -129,4 +129,33 @@ export class APIChat {
         return { error: err }
       })
   }
+
+  async getUsersChat(data: Record<string, unknown>) {
+    if (!data?.id) {
+      return null
+    }
+
+    return this.http
+      .get(`${HOST}/chats/${data.id}/users`, {
+        data
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          return { data: res.response }
+        }
+        if (res.status === 400) {
+          console.error('Ошибка запроса getUsersChat: ', res.response)
+        }
+        if (res.status === 401) {
+          console.error('Ошибка авторизации getUsersChat')
+        }
+        if (res.status === 500) {
+          console.error('Ошибка ответа при запросе getUsersChat')
+        }
+        return { error: { message: 'Ошибка получения пользователей чата, попробуйте еще раз' } }
+      })
+      .catch((err) => {
+        return { error: err }
+      })
+  }
 }
