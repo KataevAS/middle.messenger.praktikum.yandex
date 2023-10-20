@@ -9,7 +9,7 @@ interface Props {
   listForm: Field[]
   disabled?: boolean
   isEqualPassword?: boolean
-  onSubmit?: () => void
+  onSubmit?: (props: Record<string, string>) => void
 }
 
 export class MessageForm extends Form {
@@ -32,7 +32,12 @@ export class MessageForm extends Form {
                 component.value = ''
               }
             })
-            console.log(result)
+
+            if (this.props.onSubmit) {
+              console.log(result)
+              this.props.onSubmit(result)
+            }
+
             this.refs[FIELDS.MESSAGE].setProps({
               value: ''
             })

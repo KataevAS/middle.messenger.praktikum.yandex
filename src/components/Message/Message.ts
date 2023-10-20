@@ -14,7 +14,7 @@ export class Message extends Block {
   protected render(): string {
     const { userId, authorId } = this.props
 
-    const isMine = userId === authorId
+    const isMine = Number(userId) === Number(authorId)
 
     return `
       <div class='${styles.root} ${isMine ? styles.out : styles.in}'>

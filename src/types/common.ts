@@ -19,3 +19,12 @@ export interface InputFieldReturn {
 export type HTMLElementEvent<T extends HTMLElement> = Event & {
   target: T
 }
+
+export type Message = {
+  content: string
+}
+
+export type Chat = {
+  id: number,
+  messages: Message[]
+}

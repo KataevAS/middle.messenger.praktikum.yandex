@@ -53,6 +53,9 @@
         "exports": "never",
         "functions": "never"
       }
-    ]
+    ],
+    "no-constructor-return": "off",
+    "arrow-body-style": "off",
+    "no-alert": "off"
   }
 }

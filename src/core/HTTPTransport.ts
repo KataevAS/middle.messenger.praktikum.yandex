@@ -1,3 +1,5 @@
+import { queryStringify } from '../utils/queryStringify'
+
 enum METHODS {
   GET = 'GET',
   POST = 'POST',
@@ -8,8 +10,8 @@ enum METHODS {
 interface Options {
   headers?: Record<string, string>
   data?: {
-    [key: string]: string | unknown[]
-  }
+    [key: string]: unknown
+  } | FormData
   timeout?: number
 }
 
@@ -21,31 +23,7 @@ interface HTTPOptionsRequest extends Options {
   method: METHODS
 }
 
-type HTTPMethod = (url: string, options: MethodOptions) => void
-
-function queryStringify(obj: Record<string, string | unknown[]>) {
-  let queryString = ''
-  const keys = Object.keys(obj)
-
-  if (keys.length === 0) return ''
-
-  keys.forEach((key) => {
-    if (queryString !== '') {
-      queryString += '&'
-    }
-
-    let value = obj[key as keyof typeof obj]
-
-    if (Array.isArray(value)) {
-      value = value.join(',')
-    } else if (typeof value === 'object') {
-      value = '[object Object]'
-    }
-    queryString += `${key}=${value}`
-  })
-
-  return queryString
-}
+type HTTPMethod = (url: string, options?: MethodOptions) => Promise<XMLHttpRequest>
 
 export class HTTPTransport {
   get: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.GET }, options.timeout)
@@ -56,38 +34,45 @@ export class HTTPTransport {
 
   delete: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.DELETE }, options.timeout)
 
-  request = (url: string, options: HTTPOptionsRequest, timeout = 5000) => new Promise((resolve, reject) => {
-    const { method, data, headers } = options
-    const xhr = new XMLHttpRequest()
+  request = (url: string, options: HTTPOptionsRequest, timeout = 5000) => (
+    new Promise<XMLHttpRequest>((resolve, reject) => {
+      const { method, data, headers } = options
+      const xhr = new XMLHttpRequest()
 
-    const isGet = method === METHODS.GET
+      const isGet = method === METHODS.GET
 
-    xhr.open(method, isGet && !!data ? `?${url}${queryStringify(data)}` : url)
+      xhr.open(method, isGet && !!data && !(data instanceof FormData) ? `${url}?${queryStringify(data)}` : url)
 
-    xhr.onload = () => {
-      resolve(xhr)
-    }
+      xhr.onload = () => {
+        const result = {
+          ...xhr,
+          status: xhr.status,
+          response: xhr.response === 'OK' ? xhr.response : JSON.parse(xhr.response)
+        }
+        resolve(result)
+      }
 
-    if (headers) {
-      Object.keys(headers).forEach((key) => {
-        xhr.setRequestHeader(key, String(headers[key]))
-      })
-    }
+      if (headers) {
+        Object.keys(headers).forEach((key) => {
+          xhr.setRequestHeader(key, String(headers[key]))
+        })
+      }
 
-    xhr.timeout = timeout
+      xhr.timeout = timeout
 
-    xhr.onabort = reject
-    xhr.onerror = reject
-    xhr.ontimeout = reject
+      xhr.onabort = reject
+      xhr.onerror = reject
+      xhr.ontimeout = reject
 
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.setRequestHeader('Set-Cookie', 'none')
-    xhr.withCredentials = true
+      xhr.withCredentials = true
 
-    if (method === METHODS.GET || !data) {
-      xhr.send()
-    } else {
-      xhr.send(JSON.stringify(data))
-    }
-  })
+      if (method === METHODS.GET || !data) {
+        xhr.send()
+      } else if (data instanceof FormData) {
+        xhr.send(data)
+      } else {
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.send(JSON.stringify(data))
+      }
+    }))
 }

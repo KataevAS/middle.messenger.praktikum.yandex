@@ -8,9 +8,8 @@ export const ProfileLayout = `
     <div class=${styles.content}>
 
       <div class=${styles.profile}>
-        <div class=${styles.avatar}>
-          {{{ Avatar withDefault=true }}}
-        </div>
+        
+      
 
         {{> @partial-block }}
 

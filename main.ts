@@ -1,12 +1,9 @@
-// Core
-import Block, { BlockProps } from './src/core/Block'
 import { registerPartial, registerHelper, registerComponent } from './src/core/Handlebars'
 // Layout
 import MainLayout from './src/layout/Main'
 import ProfileLayout from './src/layout/Profile'
 // Pages
 import ChatPage from './src/pages/chat'
-import IndexPage from './src/pages'
 import SigninPage from './src/pages/signin'
 import LoginPage from './src/pages/login'
 import ProfilePage from './src/pages/profile'
@@ -33,12 +30,14 @@ import MessageField from './src/components/MessageField'
 import MessagesList from './src/components/MessagesList'
 import Message from './src/components/Message'
 import DateComponent from './src/components/DateComponent'
-
-const getRender = (root: Element) => (page: typeof Block, props?: BlockProps) => {
-  const Component = page
-  const component = new Component(props)
-  root?.append(component.getContent()!)
-}
+import Router from './src/core/Router'
+import DefaultLink from './src/components/DefaultLink'
+import Modal from './src/components/Modal'
+import ModalForm from './src/components/ModalForm'
+import AddChatBtn from './src/components/AddChatBtn'
+import DefaultButton from './src/components/DefaultButton'
+import Popup from './src/components/Popup'
+import AvatarWithUpload from './src/components/AvatarWithUpload'
 
 registerPartial('ProfileLayout', ProfileLayout)
 registerPartial('MainLayout', MainLayout)
@@ -62,6 +61,13 @@ registerComponent('MessageField', MessageField)
 registerComponent('MessagesList', MessagesList)
 registerComponent('Message', Message)
 registerComponent('DateComponent', DateComponent)
+registerComponent('DefaultLink', DefaultLink)
+registerComponent('Modal', Modal)
+registerComponent('ModalForm', ModalForm)
+registerComponent('AddChatBtn', AddChatBtn)
+registerComponent('DefaultButton', DefaultButton)
+registerComponent('Popup', Popup)
+registerComponent('AvatarWithUpload', AvatarWithUpload)
 
 registerHelper('each', (context, options) => {
   let ret = ''
@@ -74,49 +80,16 @@ registerHelper('each', (context, options) => {
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.querySelector('#app')
+  const router = new Router('#app')
 
-  const { pathname } = window.location
-
-  if (!root) return
-
-  const render = getRender(root)
-
-  switch (pathname) {
-    case '/login':
-      render(LoginPage)
-      break
-
-    case '/signin':
-      render(SigninPage)
-      break
-
-    case '/profile':
-      render(ProfilePage)
-      break
-
-    case '/chat':
-      render(ChatPage)
-      break
-
-    case '/profile-change':
-      render(ProfileChangePage)
-      break
-
-    case '/password-change':
-      render(PasswordChangePage)
-      break
-
-    case '/404':
-      render(ErrorPage, { errorNumber: 404, desc: 'Не туда попали' })
-      break
-
-    case '/500':
-      render(ErrorPage, { errorNumber: 500, desc: 'Мы уже фиксим' })
-      break
-
-    default:
-      render(IndexPage)
-      break
-  }
+  router
+    .use('/sign-up', SigninPage)
+    .use('/profile', ProfilePage)
+    .use('/settings', ProfileChangePage)
+    .use('/settings-password', PasswordChangePage)
+    .use('/404', ErrorPage, { errorNumber: 404, desc: 'Не туда попали' })
+    .use('/500', ErrorPage, { errorNumber: 500, desc: 'Мы уже фиксим' })
+    .use('/messenger', ChatPage)
+    .use('/', LoginPage)
+    .start()
 })

@@ -11,3 +11,11 @@ export enum FIELDS {
   PHONE = 'phone',
   MESSAGE = 'message'
 }
+
+export enum PATH {
+  LOGIN = '/',
+  MESSENGER = '/messenger',
+  PROFILE = '/profile'
+}
+
+export const HOST = 'https://ya-praktikum.tech/api/v2'

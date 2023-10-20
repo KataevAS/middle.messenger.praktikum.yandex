@@ -1,10 +1,15 @@
 import Block from '../../core/Block'
+import { Chat as ChatType } from '../../types/common'
 
 import styles from './ChatList.module.css'
 
-type Props = Record<string, string>
+type Props = {
+  chatList: Array<ChatType>
+}
 
 export class ChatList extends Block {
+  props: Props
+
   constructor(props: Props) {
     super({
       ...props
@@ -16,17 +21,31 @@ export class ChatList extends Block {
       <div class=${styles.root}>
 
         <div class=${styles.header}>
-          <a class=${styles.profileLink} href='/profile'>
-            Профиль
-            <i class=${styles.arrow}></i>
-          </a>
+
+          {{{ DefaultLink
+            href='/profile'
+            addClass='${styles.profileLink}'
+            content='
+              <div>
+                Профиль
+                <i class=${styles.arrow}></i>
+              </div>
+            '
+          }}}
+
         </div>
 
         <form class=${styles.search}>
           {{{ InputSearch }}}
         </form>
 
-        {{{ ChatFilteredList chatList=chatList userId=userId setActiveChage=setActiveChage activeChatId=activeChatId }}}
+        {{{ ChatFilteredList
+          chatList=chatList
+          userId=userId
+          setActiveChat=setActiveChat
+          activeChatId=activeChatId
+          createNewChatCb=createNewChatCb
+        }}}
 
       </div>
     `

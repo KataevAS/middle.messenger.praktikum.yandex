@@ -34,6 +34,11 @@ export class Input extends Block {
     })
   }
 
+  getValue() {
+    const el = this.getContent() as HTMLInputElement
+    return el.value
+  }
+
   protected render(): string {
     const {
       autocomplete,

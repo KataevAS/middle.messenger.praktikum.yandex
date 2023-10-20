@@ -1,3 +1,11 @@
+.root {
+  padding: 10px 20px 11px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .default {
   min-width: 100%;
   height: 100vh;
@@ -7,7 +15,7 @@
   color: var(--hard-gray);
 }
 
-.root {
+.chat {
   padding: 10px 20px 11px;
   height: 100%;
   display: flex;
@@ -21,6 +29,7 @@
   font-weight: 600;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--gray);
+  position: relative;
 }
 
 .avatar {
@@ -35,9 +44,15 @@
 }
 
 .editBtn {
+  margin-left: auto;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.editBtnIcon {
   width: 3px;
   height: 15px;
-  margin-left: auto;
   background: no-repeat url("/svg/edit.svg");
 }
 
@@ -45,4 +60,12 @@
   padding-top: 11px;
   border-top: 1px solid var(--gray);
   display: flex
+}
+
+.show {
+  display: flex;
+}
+
+.hide {
+  display: none;
 }
