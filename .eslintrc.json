@@ -4,7 +4,8 @@
   "plugins": ["@typescript-eslint"],
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "settings": {
     "import/resolver": {
@@ -56,6 +57,8 @@
     ],
     "no-constructor-return": "off",
     "arrow-body-style": "off",
-    "no-alert": "off"
+    "no-alert": "off",
+    "no-unused-expressions": "off",
+    "max-classes-per-file": "off"
   }
 }

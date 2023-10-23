@@ -3,8 +3,9 @@
 `npm run dev` - запуск dev режима
 `npm run build` - сборка проекта
 `npm run start` - сборка и запуск проекта
-`npm rin lint` - запуск проверки стиля кода и типизации
-`npm rin lint:fix` - запуск проверки и автофикса стиля кода
+`npm run lint` - запуск проверки стиля кода и типизации
+`npm run lint:fix` - запуск проверки и автофикса стиля 
+`npm run test` - запуск тестов
 
 ## Макеты
 [Figma](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=0%3A1&mode=dev)

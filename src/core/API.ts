@@ -37,7 +37,6 @@ class APIUser {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res)
           return { data: 'ok' }
         }
         if (res.status === 400) {

@@ -3,12 +3,18 @@
     "outDir": "dist",
     "target": "es2016",
     "declaration": false,
-    "module": "commonjs",
+    "module": "ESNext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleResolution": "bundler"
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
   }
 }

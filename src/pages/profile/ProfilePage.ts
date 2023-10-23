@@ -1,4 +1,3 @@
-import Link from '../../components/Link'
 import ProfileForm from '../../components/ProfileForm'
 import { PATH } from '../../constants'
 import API from '../../core/API'
@@ -17,32 +16,27 @@ export class ProfilePage extends Block {
   props: Props
 
   refs: {
-    exit: Link,
     form: ProfileForm
   }
 
   constructor() {
-    super({ listForm: listFormProfilePage, username: '' })
-
-    this.refs.exit.setProps({
-      events: {
-        click: (e: Event) => {
-          e.preventDefault()
-
-          API.User.logout()
-            .then((res) => {
-              if (res.error) {
-                alert(res.error.message)
-              } else {
-                localStorage.removeItem('user')
-                const router = new Router()
-                router.go(PATH.LOGIN)
-              }
-            })
-            .catch((err) => {
-              console.error(err)
-            })
-        }
+    super({
+      listForm: listFormProfilePage,
+      username: '',
+      onExit: () => {
+        API.User.logout()
+          .then((res) => {
+            if (res.error) {
+              alert(res.error.message)
+            } else {
+              localStorage.removeItem('user')
+              const router = new Router()
+              router.go(PATH.LOGIN)
+            }
+          })
+          .catch((err) => {
+            console.error(err)
+          })
       }
     })
   }
@@ -94,7 +88,7 @@ export class ProfilePage extends Block {
     
         {{{ Link addClass='${styles.link}' href='/settings' title='Изменить данные'}}}
         {{{ Link addClass='${styles.link}' href='/settings-password' title='Изменить пароль'}}}
-        {{{ Link addClass='${styles.link} ${styles.exitLink}' href='/' title='Выйти' ref='exit' }}}
+        {{{ DefaultButton onClick=onExit className='${styles.btn}' content='Выйти' ref='exit' }}}
       {{/ProfileLayout}}
     `
   }

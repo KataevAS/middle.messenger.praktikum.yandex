@@ -1,6 +1,6 @@
 import { queryStringify } from '../utils/queryStringify'
 
-enum METHODS {
+export enum METHODS {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
@@ -26,7 +26,12 @@ interface HTTPOptionsRequest extends Options {
 type HTTPMethod = (url: string, options?: MethodOptions) => Promise<XMLHttpRequest>
 
 export class HTTPTransport {
-  get: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.GET }, options.timeout)
+  get: HTTPMethod = (url, options = {}) => {
+    const { data } = options
+    const newUrl = !!data && !(data instanceof FormData) ? `${url}?${queryStringify(data)}` : url
+
+    return this.request(newUrl, { ...options, method: METHODS.GET }, options.timeout)
+  }
 
   post: HTTPMethod = (url, options = {}) => this.request(url, { ...options, method: METHODS.POST }, options.timeout)
 
@@ -39,9 +44,7 @@ export class HTTPTransport {
       const { method, data, headers } = options
       const xhr = new XMLHttpRequest()
 
-      const isGet = method === METHODS.GET
-
-      xhr.open(method, isGet && !!data && !(data instanceof FormData) ? `${url}?${queryStringify(data)}` : url)
+      xhr.open(method, url)
 
       xhr.onload = () => {
         const result = {

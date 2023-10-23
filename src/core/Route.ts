@@ -7,7 +7,6 @@ function render(query: string, block: Block): HTMLElement {
     const content = block.getContent()
     if (content) {
       root.appendChild(content)
-      block.dispatchComponentDidMount()
       return root
     }
     throw new Error('У переданного блока нет контента')
