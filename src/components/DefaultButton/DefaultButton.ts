@@ -34,6 +34,6 @@ export class DefaultButton extends Block {
       { name: 'type', value: type }
     ])
 
-    return `<button class={{className}} ${attributs}>{{{content}}}</button>`
+    return `<button class={{className}} ${attributs} ref=ref>{{{content}}}</button>`
   }
 }

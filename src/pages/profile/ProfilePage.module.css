@@ -9,12 +9,15 @@
   margin-bottom: 60px;
 }
 
-.link {
-  width: 100%;
+.btn, .link{
   font-size: 13px;
   padding: 10px 0;
   border-bottom: 1px solid var(--gray);
   text-align: left;
+}
+
+.link {
+  width: 100%;
 
   &:first-child {
     padding: 0 0 10px;
@@ -26,6 +29,13 @@
   }
 }
 
-.link.exitLink {
+.btn {
   color: var(--red-warning);
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
